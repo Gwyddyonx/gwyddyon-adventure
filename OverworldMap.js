@@ -24,8 +24,8 @@ window.OverworldMap = {
         upperImage: "/images/maps/DemoUpper.png",
         gameObjects: {
             hero: new GameObject({
-                x: 4,
-                y: 6,
+                x: 5,
+                y: 7,
                 src: "/images/characters/gwy_v2.png",
                 useShadow: true
             }),
