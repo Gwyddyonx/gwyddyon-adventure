@@ -2,11 +2,10 @@ class GameObject{
     constructor(config){
         this.x = config.x || 0;
         this.y = config.y || 0;
-        console.log("holagame");
-        console.log("srcgame:",config.src);
+        this.direction = config.direction || "down";
         this.sprite = new Sprite({
             GameObject:this,
-            src:config.src ||"/images/characters/gwy_v2.png",
+            src:config.src ||"/images/characters/gwy.png",
             useShadow:config.useShadow
         });
     }

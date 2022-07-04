@@ -20,28 +20,95 @@ class Sprite {
 
         //set animations
         this.animations = config.animations || {
-            idleDown: [
-                [0, 0]
+            "idle-up":[
+                [0,1]
+            ],
+            "idle-down":[
+                [0, 0],[0,0],[0, 0],[1,0]
+            ],
+            "idle-down-blink":[
+                [0, 0],[0,0],[0, 0],[2,0]
+            ],
+            "idle-left":[
+                [0,3]
+            ],
+            "idle-right":[
+                [0,4]
+            ],
+            "walk-up":[
+                [0,1],[1,1],[0,1],[2,1]
+            ],
+            "walk-down":[
+                [0,2],[1,2],[0,2],[2,2]
+            ],
+            "walk-left":[
+                [0,3],[1,3],[0,3],[2,3]
+            ],
+            "walk-right":[
+                [0,4],[1,4],[0,4],[2,4]
             ]
             /*wallDown = [
                 [0,0],[0,1],[0,2],[0,3]
             ]*/
         }
-        this.currentAnimation = config.currentAnimation || "idleDown";
-        this.currentAnimationFrame = 0;
+        this.currentAnimation = config.currentAnimation || "idle-down";
+        this.currentAnimationFrame =  config.currentAnimationFrame = 0;
+
+        this.AnimationFrameLimit =  config.AnimationFrameLimit || 8 ;
+        this.AnimationFrameProgress = this.AnimationFrameLimit;
+        
+        //this.animationFrameLimit = 16;
 
         //reference
         this.GameObject = config.GameObject;
     }
 
-    draw(ctx) {
-        const x = this.GameObject.x * 16 - 8;
-        const y = this.GameObject.y * 16 - 18;
-
-        if (this.isLoaded)
-            ctx.drawImage(this.image, 0, 0, 32, 32, x, y, 32, 32);
-        if (this.isShadowLoaded)
-            ctx.drawImage(this.shadow, 0, 0, 32, 32, x, y, 32, 32);
-
+    get frame(){
+        return this.animations[this.currentAnimation][this.currentAnimationFrame];
     }
+
+    setAnimation(key){
+        if(this.currentAnimation !== key){
+            this.currentAnimation=key;
+            this.currentAnimationFrame = 0;
+            this.AnimationFrameProgress = this.animationFrameLimit;
+        }
+    }
+
+    updateAnimationProgress(){
+        if(this.AnimationFrameProgress>0){
+            this.AnimationFrameProgress -= 1;
+            return 
+        }
+
+        this.AnimationFrameProgress = this.AnimationFrameLimit
+        this.currentAnimationFrame += 1;
+
+        if(this.frame === undefined)
+            this.currentAnimationFrame = 0;
+    }
+
+    draw(ctx) {
+        const x = this.GameObject.x - 8;
+        const y = this.GameObject.y - 18;
+
+        //console.log(x,y);
+
+        const [frameX,frameY] = this.frame;
+
+        this.isLoaded && ctx.drawImage(this.image, 
+                frameX * 32, frameY * 32, 
+                32, 32, 
+                x, y, 
+                32, 32);
+        this.isShadowLoaded && ctx.drawImage(this.shadow, 
+                0, 0,
+                32, 32,
+                x, y,
+                32, 32);
+        
+        this.updateAnimationProgress();
+    }
+
+    
 }

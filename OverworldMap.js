@@ -19,21 +19,16 @@ class OverworldMap {
 }
 
 window.OverworldMap = {
-    DemoRoom: {
+    Room: {
         lowerImage: "/images/maps/DemoLower.png",
         upperImage: "/images/maps/DemoUpper.png",
         gameObjects: {
-            hero: new GameObject({
-                x: 5,
-                y: 7,
-                src: "/images/characters/gwy_v2.png",
-                useShadow: true
-            }),
-            npc1: new GameObject({
-                x: 9,
-                y: 7,
-                src: "/images/characters/people/npc1.png",
-                useShadow: true
+            hero: new Person({
+                x: utils.withGrid(5),
+                y: utils.withGrid(7),
+                src: "/images/characters/gwy.png",
+                useShadow: true,
+                isPlayerControlled: true
             })
         }
     },
@@ -41,15 +36,16 @@ window.OverworldMap = {
         lowerImage: "/images/maps/KitchenLower.png",
         upperImage: "/images/maps/KitchenUpper.png",
         gameObjects: {
-            npc3: new GameObject({
-                x: 3,
-                y: 5,
+            npc3: new Person({
+                x: utils.withGrid(3),
+                y: utils.withGrid(5),
                 src: "/images/characters/gwy_v2.png",
-                useShadow: true
+                useShadow: true,
+                isPlayerControlled: true
             }),
-            npc4: new GameObject({
-                x: 4,
-                y: 8,
+            npc4: new Person({
+                x: utils.withGrid(4),
+                y: utils.withGrid(8),
                 src: "/images/characters/people/npc3.png",
                 useShadow: true
             })
