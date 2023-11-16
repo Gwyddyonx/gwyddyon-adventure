@@ -28,19 +28,10 @@ class Overworld {
             //game objects here
             Object.values(this.map.gameObjects).forEach(object => {
                 if (this.map.gameObjects.hero == object) {
-                    if (this.directionInput.getPowerChange()) {
-                        object.sprite.changePowerState(this.map);
-                        this.map.changePowerState();
-                        //object.sprite.draw(this.ctx, cameraPerson);
-
-                    } else {
-                        object.update({
-                            arrow: this.directionInput.getDirection(),
-                            map: this.map
-                        });
-                        //console.log(this.directionInput.getDirection());
-                        //object.sprite.draw(this.ctx,cameraPerson);
-                    }
+                    object.update({
+                        arrow: this.directionInput.getDirection(),
+                        map: this.map
+                    });
                 }
 
             })

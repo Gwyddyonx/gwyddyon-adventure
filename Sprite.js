@@ -4,7 +4,6 @@ class Sprite {
         //set images
         this.image = new Image();
         this.image.src = config.src;
-        this.powerState = false;
         this.image.onload = () => {
             this.isLoaded = true;
         }
@@ -84,24 +83,6 @@ class Sprite {
 
         if(this.frame === undefined)
             this.currentAnimationFrame = 0;
-    }
-
-    changePowerState(map){
-        //set images
-        if(map.wallsDark[`${this.GameObject.x},${this.GameObject.y}`]){
-            return;
-        }
-        this.powerState = !this.powerState;
-        this.image = new Image();
-        if(this.powerState){
-            this.image.src = "/images/characters/gwy-dark.png";
-        }else{
-            this.image.src = "/images/characters/gwy.png";
-        }
-        
-        this.image.onload = () => {
-            this.isLoaded = true;
-        }
     }
 
     draw(ctx, cameraPerson) {
