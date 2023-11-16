@@ -4,6 +4,7 @@ class Sprite {
         //set images
         this.image = new Image();
         this.image.src = config.src;
+        this.powerState = false;
         this.image.onload = () => {
             this.isLoaded = true;
         }
@@ -21,19 +22,16 @@ class Sprite {
         //set animations
         this.animations = config.animations || {
             "idle-up":[
-                [0,1]
+                [0,1],[0,1],[0,1],[3,1]
             ],
             "idle-down":[
-                [0, 0],[0,0],[0, 0],[1,0]
-            ],
-            "idle-down-blink":[
-                [0, 0],[0,0],[0, 0],[2,0]
+                [0, 0],[0,0],[0, 0],[1,0],[0, 0],[0,0],[0, 0],[1,0],[0, 0],[0,0],[0, 0],[2,0]
             ],
             "idle-left":[
-                [0,3]
+                [0,3],[0,3],[0,3],[3,3]
             ],
             "idle-right":[
-                [0,4]
+                [0,4],[0,4],[0,4],[3,4]
             ],
             "walk-up":[
                 [0,1],[1,1],[0,1],[2,1]
@@ -54,7 +52,7 @@ class Sprite {
         this.currentAnimation = config.currentAnimation || "idle-down";
         this.currentAnimationFrame =  config.currentAnimationFrame = 0;
 
-        this.AnimationFrameLimit =  config.AnimationFrameLimit || 8 ;
+        this.AnimationFrameLimit =  config.AnimationFrameLimit || 32 ;
         this.AnimationFrameProgress = this.AnimationFrameLimit;
         
         //this.animationFrameLimit = 16;
@@ -88,9 +86,28 @@ class Sprite {
             this.currentAnimationFrame = 0;
     }
 
-    draw(ctx) {
-        const x = this.GameObject.x - 8;
-        const y = this.GameObject.y - 18;
+    changePowerState(map){
+        //set images
+        if(map.wallsDark[`${this.GameObject.x},${this.GameObject.y}`]){
+            return;
+        }
+        this.powerState = !this.powerState;
+        this.image = new Image();
+        if(this.powerState){
+            this.image.src = "/images/characters/gwy-dark.png";
+        }else{
+            this.image.src = "/images/characters/gwy.png";
+        }
+        
+        this.image.onload = () => {
+            this.isLoaded = true;
+        }
+    }
+
+    draw(ctx, cameraPerson) {
+
+        const x = this.GameObject.x - 8 + utils.withGrid(10.5) - cameraPerson.x;
+        const y = this.GameObject.y - 18 + utils.withGrid(6) - cameraPerson.y;
 
         //console.log(x,y);
 

@@ -1,6 +1,7 @@
 class DirectionInput{
     constructor(){
         this.heldDirections = [];
+        this.isPowerChange = false;
 
         this.map = {
             "ArrowUp":"up",
@@ -18,8 +19,20 @@ class DirectionInput{
         return this.heldDirections[0];
     }
 
+    getPowerChange(){
+        if(this.isPowerChange){
+            this.isPowerChange = false;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     init(){
         document.addEventListener("keydown",e=>{
+            if(e.code == "KeyE"){
+                this.isPowerChange = true;
+            }
             const dir = this.map[e.code];
             if(dir && this.heldDirections.indexOf(dir) === -1 ){
                 this.heldDirections.unshift(dir);
