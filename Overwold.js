@@ -22,17 +22,14 @@ class Overworld {
             //static camera person
             const cameraPerson = this.map.gameObjects.hero;
 
-            //console.log("hero",cameraPerson);
-
-
             //game objects here
             Object.values(this.map.gameObjects).forEach(object => {
-                if (this.map.gameObjects.hero == object) {
+                //if (this.map.gameObjects.hero == object) {
                     object.update({
                         arrow: this.directionInput.getDirection(),
                         map: this.map
                     });
-                }
+                //}
 
             })
 
