@@ -39,16 +39,26 @@ class Person extends GameObject {
         if (behavior.type === "walk") {
             //stop if walk
             if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
+                console.log('returning??')
                 return;
             }
 
             //for not wall in fist wall
-            state.map.moveWall(this.x,this.y,this.direction);
+            state.map.moveWall(this.x, this.y, this.direction);
 
             //if it's walk, then, new movement with 16
             this.movingProgressRemaining = 16;
-
+            this.updateSprite();
         }
+
+        if (behavior.type === "stand") {
+            setTimeout(()=>{
+                utils.emitEvent('PersonStandComplete',{
+                    whoId: this.id
+                })
+            }, behavior.time)
+        }
+
     }
 
     updatePosition() {
@@ -59,7 +69,17 @@ class Person extends GameObject {
         this[property] += (change / 2);
         this.movingProgressRemaining -= 0.5;
 
+        console.log("this.movingProgressRemaning;",this.movingProgressRemaining )
+
+        if (this.movingProgressRemaining == 0) {
+            console.log('PersonWalkingComplete')
+            utils.emitEvent('PersonWalkingComplete', {
+                whoId: this.id
+            })
+        }
+
     }
+
     updateSprite() {
 
         if (this.movingProgressRemaining > 0) {
