@@ -72,7 +72,7 @@ window.OverworldMap = {
                 useShadow: true,
                 isPlayerControlled: true
             }),
-            npc1: new Person({
+            /*npc1: new Person({
                 x: utils.withGrid(9),
                 y: utils.withGrid(3),
                 src: "/images/characters/gwy-dark.png",///images/characters/people/npc2.png
@@ -88,7 +88,7 @@ window.OverworldMap = {
                     { type: 'stand', direction: "down", time: 1000 },
 
                 ]
-            }),
+            }),*/
         },
         walls: {
             [utils.asGridCoord(11, 3)]: true,
