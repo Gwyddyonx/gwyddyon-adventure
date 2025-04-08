@@ -61,7 +61,7 @@ class Overworld {
 
         console.log("sfx.play")
         this.sfx.backgroundMusic.play();
-        this.sfx.backgroundMusic.volume(0.4);
+        this.sfx.backgroundMusic.volume(0.1);
 
     }
 
